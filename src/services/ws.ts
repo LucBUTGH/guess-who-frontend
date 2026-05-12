@@ -13,7 +13,7 @@ export function connectWS(
 
   return new Promise((resolve) => {
     client = new Client({
-      brokerURL: 'ws://localhost:8080/ws',
+      brokerURL: (import.meta.env.VITE_API_URL ?? 'http://localhost:8080').replace(/^http/, 'ws') + '/ws',
       connectHeaders: { Authorization: `Bearer ${token}` },
       reconnectDelay: 5000,
       onConnect: () => {
