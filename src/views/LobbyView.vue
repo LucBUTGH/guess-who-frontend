@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { createGame, getPlayerStats, joinGame } from "../services/api";
 import { connectWS, disconnectWS } from "../services/ws";
@@ -29,6 +29,8 @@ onMounted(async () => {
     stats.value = (await getPlayerStats()).data;
   } catch {}
 });
+
+onUnmounted(() => disconnectWS());
 
 async function create() {
   error.value = "";
