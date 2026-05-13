@@ -16,6 +16,8 @@ export function connectWS(
       brokerURL: (import.meta.env.VITE_API_URL ?? 'http://localhost:8080').replace(/^http/, 'ws') + '/ws',
       connectHeaders: { Authorization: `Bearer ${token}` },
       reconnectDelay: 5000,
+      heartbeatIncoming: 10000,
+      heartbeatOutgoing: 10000,
       onConnect: () => {
         client!.subscribe(`/topic/game/${gameCode}`, (msg) => {
           const event: GameEvent = JSON.parse(msg.body)
@@ -23,6 +25,10 @@ export function connectWS(
           else onEvent(event)
         })
         client!.subscribe('/user/queue/game', (msg) => {
+          const event: GameEvent = JSON.parse(msg.body)
+          onEvent(event)
+        })
+        client!.subscribe('/user/queue/errors', (msg) => {
           const event: GameEvent = JSON.parse(msg.body)
           onEvent(event)
         })

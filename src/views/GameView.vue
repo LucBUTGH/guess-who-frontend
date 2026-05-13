@@ -48,6 +48,8 @@ function handleEvent(event: GameEvent) {
     nextTick(() => {
       if (chatScrollRef.value) chatScrollRef.value.scrollTop = chatScrollRef.value.scrollHeight
     })
+  } else if (event.type === 'ERROR') {
+    guessSent.value = false
   }
 }
 

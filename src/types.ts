@@ -12,7 +12,7 @@ export interface GameResponse {
 }
 
 export interface GameEvent {
-  type: 'GAME_START' | 'GAME_RESULT' | 'GAME_ABORT' | 'CHAT'
+  type: 'GAME_START' | 'GAME_RESULT' | 'GAME_ABORT' | 'CHAT' | 'ERROR'
   character?: Character
   result?: 'WIN' | 'LOSE'
   opponentCharacter?: Character
